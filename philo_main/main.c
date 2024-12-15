@@ -1,38 +1,32 @@
-#include <pthread.h>
-#include <stdio.h>
-#include <time.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dasargsy <dasargsy@student.42yerevan.am    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/15 15:42:18 by dasargsy          #+#    #+#             */
+/*   Updated: 2024/12/15 20:34:22 by dasargsy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-pthread_mutex_t mutex;
+#include "includes/philo.h"
 
-void *f(void *a) {
-    int *num = (int *)a;
+int main(int argc, char **argv) 
+{
+    pthread_t		*philos;
+	pthread_mutex_t *forks;
 
-    while (*num < 10000) {
-        pthread_mutex_lock(&mutex);
-        (*num)++;
-        pthread_mutex_unlock(&mutex);    
-		usleep(10);
+	philos = NULL;
+	forks = NULL;
+	if (!check_args(argc, argv))
+	{
+		printf("Invalid arguments\n");
+		return (1);
 	}
-
-    return NULL;
-}
-
-int main() {
-    pthread_t thread;
-    int i = 0;
-
-    pthread_mutex_init(&mutex, NULL);
-
-    pthread_create(&thread, NULL, f, &i);
-
-    while (i < 10000) {
-        pthread_mutex_lock(&mutex);
-        printf("%d\n", i);
-        pthread_mutex_unlock(&mutex);
-		usleep(10);
-    }
-    pthread_mutex_destroy(&mutex);
-    return 0;
+	init(forks, philos, argv);
+	solution(philos, forks, ft_atoi(argv[1]));
+    ft_join_and_destroy(philos, forks, ft_atoi(argv[1]));
+	return 0;
 }
 

@@ -6,11 +6,11 @@
 /*   By: dasargsy <dasargsy@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 14:59:19 by dasargsy          #+#    #+#             */
-/*   Updated: 2024/12/15 15:07:45 by dasargsy         ###   ########.fr       */
+/*   Updated: 2024/12/15 15:49:58 by dasargsy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 int		ft_atoi(const char *str)
 {
