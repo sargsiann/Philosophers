@@ -6,7 +6,7 @@
 /*   By: dasargsy <dasargsy@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 20:05:04 by dasargsy          #+#    #+#             */
-/*   Updated: 2025/01/06 20:48:47 by dasargsy         ###   ########.fr       */
+/*   Updated: 2025/01/08 02:19:26 by dasargsy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,9 @@ int	check_data(t_data *data, char **av)
 	{
 		error("Invalid arguments");
 		return (0);
-	}	
+	}
+	data->end = 0;
+	data->is_all_ready = 0;
+	pthread_mutex_init(&data->access_mutex, NULL);	
 	return (1);
 }

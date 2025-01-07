@@ -6,7 +6,7 @@
 /*   By: dasargsy <dasargsy@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 19:29:22 by dasargsy          #+#    #+#             */
-/*   Updated: 2025/01/06 20:56:38 by dasargsy         ###   ########.fr       */
+/*   Updated: 2025/01/08 02:36:46 by dasargsy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_fork {
 typedef struct s_philo {
 	int			philo_id;
 	long		meals_eaten;
-	int			is_full;
+	short		is_full;
 	long		last_meal_time;
 	t_fork		*left_fork;
 	t_fork		*right_fork;
@@ -48,13 +48,21 @@ typedef struct s_data
 	long		time_to_sleep;
 	long		num_of_meals;
 	long 		start_time;
-	int			end;
-	t_philo	*philos;
-	t_fork	*forks;
+	short		end;
+	short		is_all_ready;
+	mutex_t		access_mutex;
+	t_philo		*philos;
+	t_fork		*forks;
 }	t_data;
 
 void	error(char *str);
 int		check_data(t_data *data, char **argv);
 int		init_data(t_data *data);
+int		init_philos(t_data *data);
+void	set_bool(mutex_t *m, short *data, short val);
+short	get_bool(mutex_t *m, short *data);
+void	set_long(mutex_t *m, long *data, long val);
+long	get_long(mutex_t *m, long *data);
+void	wait_all_threads(t_data *data);
 
 #endif

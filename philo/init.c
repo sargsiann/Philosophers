@@ -6,7 +6,7 @@
 /*   By: dasargsy <dasargsy@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 20:59:18 by dasargsy          #+#    #+#             */
-/*   Updated: 2025/01/06 20:57:55 by dasargsy         ###   ########.fr       */
+/*   Updated: 2025/01/08 02:14:22 by dasargsy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	init_philos(t_data *data)
 		data->philos[i].data = data;
 		i++;
 	}
-}
+ }
 
 int	init_data(t_data *data)
 {
