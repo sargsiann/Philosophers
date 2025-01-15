@@ -6,11 +6,28 @@
 /*   By: dasargsy <dasargsy@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:04:05 by dasargsy          #+#    #+#             */
-/*   Updated: 2025/01/09 21:29:15 by dasargsy         ###   ########.fr       */
+/*   Updated: 2025/01/15 19:11:29 by dasargsy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+static void	eat(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->left_fork->fork_mutex);
+	write_message(philo, FORK);
+	pthread_mutex_lock(&philo->right_fork->fork_mutex);
+	write_message(philo, FORK);
+	philo->last_meal_time = get_time();
+	philo->meals_eaten++;
+	write_message(philo, EAT);
+	ft_usleep(philo->data->time_to_eat, philo->data);
+	if (philo->data->num_of_meals != 0 
+		&& philo->meals_eaten >= philo->data->num_of_meals)
+		philo->is_full = 1;
+	pthread_mutex_unlock(&philo->left_fork->fork_mutex);
+	pthread_mutex_unlock(&philo->right_fork->fork_mutex);
+}
 
 void	*dinner(void *data)
 {

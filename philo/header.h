@@ -6,7 +6,7 @@
 /*   By: dasargsy <dasargsy@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 19:29:22 by dasargsy          #+#    #+#             */
-/*   Updated: 2025/01/09 21:56:07 by dasargsy         ###   ########.fr       */
+/*   Updated: 2025/01/15 19:11:41 by dasargsy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <limits.h>
+# include <time.h>
 
 typedef pthread_mutex_t mutex_t;
 
@@ -28,11 +29,11 @@ typedef struct s_fork {
 	mutex_t	fork_mutex;
 }	t_fork;
 
-# define fork "has taken a fork"
-# define eat "is eating"
-# define sleep "is sleeping"
-# define think "is thinking"
-# define die "died"
+# define  FORK "has taken a fork" 
+# define  EAT "is eating"
+# define  SLEEP "is sleeping"
+# define  THINK "is thinking"
+# define  DIE "died"
 
 typedef struct s_philo {
 	int			philo_id;
@@ -41,7 +42,7 @@ typedef struct s_philo {
 	long		last_meal_time;
 	t_fork		*left_fork;
 	t_fork		*right_fork;
-	pthread_t	philo_thread;	
+	pthread_t	philo_thread; 
 	t_data		*data;
 }	t_philo;
 
@@ -70,5 +71,6 @@ void	set_long(mutex_t *m, long *data, long val);
 long	get_long(mutex_t *m, long *data);
 void	wait_all_threads(t_data *data);
 long	get_time(void);
-
+void	write_message(t_philo *philo, char *str);
+void	ft_usleep(size_t milliseconds, t_data *data);
 #endif

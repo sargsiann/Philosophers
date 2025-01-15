@@ -6,7 +6,7 @@
 /*   By: dasargsy <dasargsy@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 19:54:21 by dasargsy          #+#    #+#             */
-/*   Updated: 2025/01/09 21:53:38 by dasargsy         ###   ########.fr       */
+/*   Updated: 2025/01/15 19:09:59 by dasargsy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ int ft_usleep(size_t milliseconds, t_data *data)
 {
     size_t start;
 
-    start = get_current_time();
-    while ((get_current_time() - start) < milliseconds)
+    start = get_time();
+    while ((get_time() - start) < milliseconds)
     {
-        if (get_bool(&data->access_mutex, data->end))
+        if (get_bool(&data->access_mutex, &data->end))
             return (1);        
     }
     return (0); 
@@ -28,10 +28,10 @@ int ft_usleep(size_t milliseconds, t_data *data)
 void	write_message(t_philo *philo, char *str)
 {
 	pthread_mutex_lock(&philo->data->print_mutex);
-	if (philo->data->end == 0)
+	if (get_bool(&philo->data->access_mutex, &philo->data->end))
 		printf("Philo %d %s\n", philo->philo_id + 1, str);
 	pthread_mutex_unlock(&philo->data->print_mutex);
-}
+} 
 
 long	get_time(void)
 {
