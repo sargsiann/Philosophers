@@ -1,25 +1,26 @@
-NAME = philo_main
+NAME = philo
 
-CFLAGS = -Wall -Wextra -Werror
+CC = cc
 
-SRCS = $(shell find philo -name "*.c")
+CFLAGS = -Wall -Wextra -Werror 
+
+SRCS = $(shell find philo_main -name "*.c")
 
 OBJS = $(SRCS:.c=.o)
 
-DEPS = Makefile philo/header.header
-
-%.o: %.c $(DEPS)
-	cc $(CFLAGS) -c -o $@ $<
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	cc $(CFLAGS) -o $(NAME) $(OBJS)
+	$(CC) $(OBJS) $(CFLAGS) -o $(NAME)
 
 clean:
 	rm -f $(OBJS)
 
 fclean: clean
+	rm -f $(NAME)
 
 re: fclean all
 

@@ -1,0 +1,54 @@
+#ifndef PHILO_H
+
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdbool.h>
+# include <pthread.h> 
+# include <sys/time.h>
+# include <limits.h>
+
+typedef struct s_table	t_table;
+
+// FORK IS THE STRUCT FOR MUTEX
+
+typedef struct s_fork
+{
+	pthread_mutex_t fork;
+	int				fork_id;
+}	t_fork;
+
+// PHILOSOPHER IS THE STRUCT ID,LFT FORK,RGHT FORK, MEALS, last meal time, isDied, thread id 
+
+typedef struct s_philo
+{
+	int			id;
+	long		meals;
+	bool		is_full;
+	long		last_meal_time;
+	bool		is_dead;
+	t_fork		*left_fork;
+	t_fork		*right_fork;
+	pthread_t	thread_id;
+	t_table		*table;
+}	t_philo;
+
+// TABLE IS STRUCT FOR INFO ABOUT SIMULATION WITH ARRAYS OF PHILOS AND FORKS
+
+struct s_table
+{
+	int		philo_nbr;
+	long	time_to_die;
+	long	time_to_sleep;
+	long	time_to_eat;
+	long	meals_limit;
+	long	sim_start;
+	bool	end;
+	t_fork	*forks;
+	t_philo	*philos;
+};
+
+void	error_exit(const char *s);
+long	ft_atol(const char *str);
+void	parse(t_table *table, char **argv);
+# endif
