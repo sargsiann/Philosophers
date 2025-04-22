@@ -6,6 +6,7 @@ int main(int argc, char **argv)
 	if (argc >= 5 && argc <= 6) 
 	{
 		parse(&table, argv);
+		init(&table);
 	}
 	else if (argv[0][0] == '0'){
 		error_exit("Error: Wrong number of philos\n");

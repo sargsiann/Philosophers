@@ -51,4 +51,5 @@ struct s_table
 void	error_exit(const char *s);
 long	ft_atol(const char *str);
 void	parse(t_table *table, char **argv);
+void	init(t_table *table);
 # endif
