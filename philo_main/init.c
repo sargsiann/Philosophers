@@ -1,10 +1,26 @@
 #include "philo.h"
 
+static	void	assign_forks(t_philo *philo)
+{
+	if (philo->id % 2)
+	{
+		philo->first_fork = &philo->table->forks[philo->id - 1];
+		philo->second_fork = &philo->table->forks[philo->id % philo->table->philo_nbr];
+	}
+	else
+	{
+		philo->first_fork = &philo->table->forks[philo->id % philo->table->philo_nbr];
+		philo->second_fork = &philo->table->forks[philo->id - 1];
+	}
+}
+
 void	init(t_table *table) 
 {
 	int	i;
 
 	i = -1;
+	table->all_threads_ready = false;
+	pthread_mutex_init(&table->table_mutex, NULL);
 	table->end = false;
 	table->philos = malloc(sizeof(t_philo) * table->philo_nbr);
 	if (!table->philos)
@@ -21,8 +37,7 @@ void	init(t_table *table)
 		table->philos[i].is_full = false;
 		table->philos[i].last_meal_time = 0;
 		table->philos[i].is_dead = false;
-		table->philos[i].right_fork = &table->forks[i];
-		table->philos[i].left_fork = &table->forks[(i + 1) % table->philo_nbr];
+		assign_forks(&table->philos[i]);
 		table->philos[i].table = table;
 	}
 }

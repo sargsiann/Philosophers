@@ -27,8 +27,8 @@ typedef struct s_philo
 	bool		is_full;
 	long		last_meal_time;
 	bool		is_dead;
-	t_fork		*left_fork;
-	t_fork		*right_fork;
+	t_fork		*first_fork;
+	t_fork		*second_fork;
 	pthread_t	thread_id;
 	t_table		*table;
 }	t_philo;
@@ -44,6 +44,8 @@ struct s_table
 	long	meals_limit;
 	long	sim_start;
 	bool	end;
+	bool	all_threads_ready;
+	pthread_mutex_t table_mutex;
 	t_fork	*forks;
 	t_philo	*philos;
 };
@@ -52,4 +54,12 @@ void	error_exit(const char *s);
 long	ft_atol(const char *str);
 void	parse(t_table *table, char **argv);
 void	init(t_table *table);
+void	dinner(t_table *table);
+void	simulation(void	*data);
+void	set_bool(pthread_mutex_t *mutex, bool *var, bool value);
+bool	get_bool(pthread_mutex_t *mutex, bool *var);
+long	get_long(pthread_mutex_t *mutex, long *var);
+void	set_long(pthread_mutex_t *mutex, long *var, long value);
+
+
 # endif
